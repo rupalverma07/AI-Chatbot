@@ -1,15 +1,13 @@
-import { Card, CardMedia, Grid, IconButton, Rating, Tooltip, Typography } from '@mui/material'
+import { Box, Card, CardMedia, Grid, IconButton, Rating, Tooltip, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react';
 import userImg from '../../assets/Group 1000011096.png'
 import aiImg from '../../assets/Group 1000011097.png'
 import Feedback from '../feedback/Feedback';
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
-const getLocalStorageData = () =>{
-    let data = JSON.parse(localStorage.getItem("aiChat"))
-    return data;
-}
-const MessagesLlist = ({data}) => {
+import styles from './list.module.css'
+
+const MessagesLlist = ({data,index}) => {
     const[isModalOpen, setIsModalOpen] = useState(false)
     const [value, setValue] = React.useState(0);
     const [showStar, setShowStar] = useState(false)
@@ -24,30 +22,34 @@ setShowStar(true)
     }
     const receiveFdbkText = (val) =>{
         setUserFeedback(val)
-        data.dislike = val
-        setChatHistory([...chatHistory,data])
+        // data.dislike = val
+        // setChatHistory([...chatHistory,data])
+        // console.log(chatHistory,'text')
     }
     const ratingHandler = (e) =>{
         setValue(e.target.value)
-        if(data.isAI){
-            data.like = e.target.value
-        }
-        setChatHistory([...chatHistory,data])
+        // if(data.isAI){
+        //     data.like = e.target.value
+        // }
+        // setChatHistory([...chatHistory,data])
+        // console.log(chatHistory,'rating')
     }
     useEffect(() =>{
-      if(!data.isAI){
-        setChatHistory([...chatHistory,data])
+      if(data.isAI){
+       data.like = value;
+       data.dislike = userFeedback
       } 
-    },[data])
+     
+    },[value,Feedback,data])
     return (
-        <>
-        <Card style={{position:"relative"}}>
-            <Grid container>
+        <Box className={styles.chatContainer}>
+        <Card style={{position:"relative"}} className={styles.cardContainer}>
+            <Grid container spacing={3}>
                 <Grid item>
-                    {data.isAI ? ( <img  src={aiImg} alt='ai image' />):( <img src={userImg} alt='user image'/>)}
+                    {data.isAI ? ( <img  src={aiImg} alt='ai image' height='80' width='80'/>):( <img src={userImg} alt='user image' style={{marginLeft:"10px"}}/>)}
                    
                 </Grid>
-                <Grid item>
+                <Grid item style={{width:"70%"}}>
                 <Typography variant='h5' component="div">
                         {data.isAI ? ('Soul AI') : ('You')}
                     </Typography>
@@ -76,18 +78,22 @@ setShowStar(true)
               </Tooltip>
             </div>
           )}
+          <Box>
+            <p>Rate this response</p>
           {data.isAI && showStar && ( <Rating
         name="simple-controlled"
         value={value}
         onChange={ratingHandler}
       />)}
-             {userFeedback}       
-                
+      </Box>
+                <Box>
+              Feedback: {userFeedback}       
+               </Box>
                     </Grid>
             </Grid>
         </Card>
          <Feedback setModal={isModalOpen} stterFunc={setIsModalOpen} sendFdbkText={receiveFdbkText}/>
-         </>
+         </Box>
       )
 }
 

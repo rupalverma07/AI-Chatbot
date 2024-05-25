@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -10,7 +10,15 @@ import editImage from '../../assets/image 31.png';
 import mockData from '../../Json/data.json';
 import MessagesLlist from '../messageLlist/MessagesLlist';
 import Feedback from '../feedback/Feedback';
-
+import { Link } from 'react-router-dom';
+const getLocalStorageData = () =>{
+    let data = JSON.parse(localStorage.getItem("conversation"))
+    if(data !== null){
+    return data;
+    }else{
+        return []
+    }
+}
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -24,6 +32,7 @@ const Chat = () => {
     const [messages, setMessages] = useState([]);
     const [inputVal, setInputVal] = useState('');
     const[showChat, setShowChat] = useState(false);
+    const [conversation, setConversation] = useState(getLocalStorageData());
    
 const handleSendMessage = () =>{
     setShowChat(true)
@@ -42,10 +51,20 @@ const handleSendMessage = () =>{
 }
 }
 const saveChatData = () =>{
-    localStorage.setItem("chats",JSON.stringify(messages))
+    
     setShowChat(false)
+    console.log(messages,'save')
+    let date = new Date();
+    console.log(date)
+    let newConveration = {date:'Today', msg:messages}
     // setIsModalOpen(true)
+    setConversation([...conversation,newConveration])
+    console.log(conversation)
+    setMessages([])
 }
+useEffect(() =>{
+    localStorage.setItem("conversation",JSON.stringify(conversation))
+},[conversation])
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container>
@@ -63,13 +82,13 @@ const saveChatData = () =>{
             </Grid>
             </Grid>
         <Grid item className={styles.past}>
-            Past Conversations
+            <Link to="/chatHistory">Past Conversations</Link>
         </Grid>
         </Grid>
         <Grid item lg={10}>
             <Box className={styles.rightContainer}>
             <Typography variant='h5' className={styles.heading}>Bot AI</Typography>
-            {showChat ? (messages.map(item => <MessagesLlist data={item}/>)):(<>
+            {showChat ? (messages.map((item,i) => <MessagesLlist data={item} index={i}/>)):(<>
                 <Grid className={styles.mainContent}  container justifyContent="center" alignItems="center">
                 {/* <Box > */}
                 <div>
@@ -139,10 +158,10 @@ const saveChatData = () =>{
                 <Grid item lg={10}>
                     <TextField fullWidth value={inputVal} onChange={(e) => setInputVal(e.target.value)} />
                 </Grid>
-                <Grid item lg={1}>
+                <Grid item lg={1} style={{padding:"24px"}}>
                     <Button variant='contained' className={styles.btn} onClick={handleSendMessage}>Ask</Button>
                 </Grid>
-                <Grid item lg={1}>
+                <Grid item lg={1} style={{padding:"24px"}}>
                 <Button variant='contained' onClick={saveChatData} className={styles.btn}>Save</Button>
                 </Grid>
             </Grid>

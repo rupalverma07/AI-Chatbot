@@ -1,0 +1,12 @@
+.chatContainer{
+   /* background: linear-gradient(90deg, #BFACE2 0%, #D7C7F4 100%); */
+}
+
+.cardContainer{
+    width: 1015.39px !important;
+min-height: 105px !important;
+border-radius: 20px !important;
+/* background: #D7C7F421 !important; */
+background: linear-gradient(90deg, #BFACE2 0%, #D7C7F4 100%);
+padding: 16px;
+}
