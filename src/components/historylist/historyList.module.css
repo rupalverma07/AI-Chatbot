@@ -10,3 +10,15 @@ border-radius: 20px !important;
 background: linear-gradient(90deg, #BFACE2 0%, #D7C7F4 100%);
 padding: 16px;
 }
+
+
+.cardContainer:nth-child(even){
+    border-bottom-right-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+}
+
+.cardContainer:nth-child(odd){
+    border-top-right-radius: 0px !important;
+    border-top-left-radius: 0px !important;
+    margin-bottom: 10px;
+}

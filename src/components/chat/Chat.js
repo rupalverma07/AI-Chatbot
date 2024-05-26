@@ -5,11 +5,13 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import leftImg from '../../assets/Group 1000011097.png'
 import styles from './chat.module.css'
-import { Button, Card, CardContent, TextField, Typography } from '@mui/material';
+import { Button, Card, CardContent, IconButton, TextField, Typography } from '@mui/material';
 import editImage from '../../assets/image 31.png';
 import mockData from '../../Json/data.json';
 import MessagesLlist from '../messageLlist/MessagesLlist';
 import Feedback from '../feedback/Feedback';
+import MenuIcon from '@mui/icons-material/Menu';
+import crossIcon from '../../assets/X.png'
 import { Link } from 'react-router-dom';
 const getLocalStorageData = () =>{
     let data = JSON.parse(localStorage.getItem("conversation"))
@@ -33,6 +35,7 @@ const Chat = () => {
     const [inputVal, setInputVal] = useState('');
     const[showChat, setShowChat] = useState(false);
     const [conversation, setConversation] = useState(getLocalStorageData());
+    const[showSideBar, setShowSideBar] = useState(false)
    
 const handleSendMessage = () =>{
     setShowChat(true)
@@ -68,7 +71,9 @@ useEffect(() =>{
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container>
-        <Grid item  spacing={2} lg={2} >
+      
+        <Grid item  lg={2} md={2} sm={3} sx={{ display: { xs: 'none', sm: 'block' } }}>
+        
             <Grid container className={styles.leftContent}>
             <Grid item>
             <img className={styles.leftImage} src={leftImg}/>
@@ -81,12 +86,41 @@ useEffect(() =>{
             <img src={editImage} height='30'/>
             </Grid>
             </Grid>
-        <Grid item className={styles.past}>
+        <button className={styles.past} >
             <Link to="/chatHistory">Past Conversations</Link>
+        </button>
         </Grid>
-        </Grid>
-        <Grid item lg={10}>
+        <Grid item lg={10} md={10} sm={9} xs={12}>
             <Box className={styles.rightContainer}>
+           
+                <IconButton  sx={{ display: { xs: 'block', sm: 'none' } }} edge="start" color="inherit" aria-label="menu" >
+        <MenuIcon onClick={() => setShowSideBar(true)} />
+      </IconButton>
+    
+             {showSideBar ? (
+        <div  className={styles.sidebar}>
+        <div  className={styles.sideItem}>
+        <Grid item>
+        <img className={styles.leftImage} src={leftImg}/>
+        </Grid>
+        <Grid item>
+        <Typography variant='h6'>New Chat</Typography>
+        </Grid>
+        <Grid item>
+
+        <img src={editImage} height='25'/>
+        </Grid>
+        <Grid item>
+
+                <img src={crossIcon} onClick={() => setShowSideBar(false)} height='20'/>
+            </Grid>
+        </div>
+        <div  className={styles.sidePast}>
+        <Link to="/chatHistory">Past Conversations</Link>
+    </div>
+        </div>
+    ) : (null)}   
+            
             <Typography variant='h5' className={styles.heading}>Bot AI</Typography>
             {showChat ? (messages.map((item,i) => <MessagesLlist data={item} index={i}/>)):(<>
                 <Grid className={styles.mainContent}  container justifyContent="center" alignItems="center">
@@ -98,7 +132,7 @@ useEffect(() =>{
                 {/* </Box> */}
             </Grid>
             <Grid container spacing={2}>
-            <Grid item lg={6}>
+            <Grid item lg={6} md={6} sm={6} xs={12}>
                 <Card>
                     <CardContent>
                         <Typography variant='h5' component='div'>
@@ -111,7 +145,7 @@ useEffect(() =>{
                     </CardContent>
                 </Card>
             </Grid>
-            <Grid item lg={6}>
+            <Grid item lg={6} md={6} sm={6} xs={12}>
             <Card>
                     <CardContent>
                         <Typography variant='h5' component='div'>
@@ -124,7 +158,7 @@ useEffect(() =>{
                     </CardContent>
                 </Card>
             </Grid>
-            <Grid item lg={6}>
+            <Grid item lg={6} md={6} sm={6} xs={12}>
             <Card>
                     <CardContent>
                         <Typography variant='h5' component='div'>
@@ -137,7 +171,7 @@ useEffect(() =>{
                     </CardContent>
                 </Card>
             </Grid>
-            <Grid item lg={6}>
+            <Grid item lg={6} md={6} sm={6} xs={12}>
             <Card>
                     <CardContent>
                         <Typography variant='h5' component='div'>
@@ -155,13 +189,13 @@ useEffect(() =>{
             </>)}
            
             <Grid container spacing={2} mt={2}>
-                <Grid item lg={10}>
+                <Grid item lg={10} md={10} sm={8} xs={7}>
                     <TextField fullWidth value={inputVal} onChange={(e) => setInputVal(e.target.value)} />
                 </Grid>
-                <Grid item lg={1} style={{padding:"24px"}}>
+                <Grid item lg={1} style={{padding:"24px"}} md={1} sm={2} xs={2}>
                     <Button variant='contained' className={styles.btn} onClick={handleSendMessage}>Ask</Button>
                 </Grid>
-                <Grid item lg={1} style={{padding:"24px"}}>
+                <Grid item lg={1} md={1} sm={2} xs={2} style={{padding:"24px"}}>
                 <Button variant='contained' onClick={saveChatData} className={styles.btn}>Save</Button>
                 </Grid>
             </Grid>

@@ -31,7 +31,7 @@ color: #9785BA;
     linear-gradient(0deg, #D7C7F4, #D7C7F4),
     linear-gradient(0deg, #D7C7F4, #D7C7F4),
     linear-gradient(0deg, #D7C7F4, #D7C7F4);
-    width: 175.16px;
+    width: 80%;
     height: 39px;
     border-radius: 10px;
     font-family: Ubuntu;
@@ -40,8 +40,10 @@ font-weight: 700;
 line-height: 18.38px;
 text-align: left;
 color:#414146;
-margin: 13px 10px 0px 36px !important;
+/* margin: 13px 10px 0px 36px !important; */
 padding: 10px 5px 5px 20px;
+border: 1px solid #fff;
+text-decoration: none;
 }
 
 .leftContent{
@@ -49,5 +51,39 @@ padding: 10px 5px 5px 20px;
     linear-gradient(0deg, #D7C7F4, #D7C7F4),
     linear-gradient(0deg, #D7C7F4, #D7C7F4),
     linear-gradient(0deg, #D7C7F4, #D7C7F4);
-    gap: 30px;
+    /* gap: 30px; */
+}
+.sidebar{
+    position: absolute;
+    background-color: #fff;
+    color: #414146;
+    height: 100vh;
+    width: 200px !important;
+    top: 0;
+    left:0;
+    text-align: left;
+    z-index: 10;
+    padding: 10px;
+    /* display:none */
+}
+
+.sideItem{
+    display: flex;
+    gap: 10px;
+}
+
+.sidePast {
+    background: linear-gradient(0deg, #D7C7F4, #D7C7F4), linear-gradient(0deg, #D7C7F4, #D7C7F4), linear-gradient(0deg, #D7C7F4, #D7C7F4), linear-gradient(0deg, #D7C7F4, #D7C7F4);
+    /* width: 175.16px; */
+    /* height: 39px; */
+    border-radius: 10px;
+    font-family: Ubuntu;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 18.38px;
+    text-align: left;
+    color: #414146;
+    margin: 13px 10px 0px 15px !important;
+    padding: 7px 5px 5px 20px;
+    list-style: none;
 }
