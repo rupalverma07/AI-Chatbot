@@ -4,7 +4,7 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import leftImg from '../../assets/Group 1000011097.png'
+import leftImg from '../../assets/Group 1000011097 (1).png'
 import styles from './history.module.css'
 import { Button, Card, CardContent, FormControl, IconButton, InputLabel, MenuItem, Select, Stack, TextField, Typography } from '@mui/material';
 import editImage from '../../assets/image 31.png';
@@ -56,21 +56,22 @@ const ChatHistory = () => {
         // console.log(mergedData);
         let filteredData = data.filter(item =>{
             // if(item.isAI){
-             return   item.like = rating
+             return   item.like === rating
             // }
         })
         console.log(filteredData);
+        setChatData(filteredData)
     }
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container>
-        <Grid item  lg={2} md={2} sm={3} sx={{ display: { xs: 'none', sm: 'block' } }} >
+        <Grid item  lg={2} md={2} sm={2}  sx={{ display: { xs: 'none', sm: 'block' } }} >
             <Grid container className={styles.leftContent}>
             <Grid item>
             <img className={styles.leftImage} src={leftImg}/>
             </Grid>
             <Grid item>
-            <Link to="/"><Typography variant='h6'>New Chat</Typography></Link>
+           <Typography variant='h6'> <Link to="/">New Chat</Link></Typography>
             </Grid>
             <Grid item>
 
@@ -81,7 +82,7 @@ const ChatHistory = () => {
             <Link to="/chatHistory">Past Conversations</Link>
         </button>
         </Grid>
-        <Grid item lg={10} md={10} sm={9} xs={12}>
+        <Grid item lg={10} md={10} sm={10} xs={12}>
             <Box className={styles.rightContainer}>
             <IconButton  sx={{ display: { xs: 'block', sm: 'none' } }} edge="start" color="inherit" aria-label="menu" >
         <MenuIcon onClick={() => setShowSideBar(true)} />
@@ -94,7 +95,7 @@ const ChatHistory = () => {
         <img className={styles.leftImage} src={leftImg}/>
         </Grid>
         <Grid item>
-        <Typography variant='h6'>New Chat</Typography>
+        <Typography variant='h6'> <Link to="/">New Chat</Link></Typography>
         </Grid>
         <Grid item>
 
