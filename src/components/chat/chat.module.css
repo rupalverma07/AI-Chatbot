@@ -87,3 +87,23 @@ text-decoration: none;
     padding: 7px 5px 5px 20px;
     list-style: none;
 }
+
+.sidePast a{
+    text-decoration: none;
+}
+.past a{
+    text-decoration: none;
+}
+
+@media screen and (max-width:1400px) {
+    .past{
+        margin: 15px;
+    }
+}
+
+@media screen and (max-width:1200px) {
+    .past{
+        margin: 15px;
+        font-size: 14px;
+    }
+}

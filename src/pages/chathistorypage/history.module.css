@@ -42,6 +42,7 @@ text-align: left;
 color:#414146;
 margin: 13px 10px 0px 36px !important;
 padding: 10px 5px 5px 20px;
+border: 1px solid #fff;
 }
 
 .leftContent{
@@ -89,4 +90,15 @@ padding: 10px 5px 5px 20px;
     margin: 13px 10px 0px 15px !important;
     padding: 7px 5px 5px 20px;
     list-style: none;
+}
+
+.sidePast a{
+    text-decoration: none;
+}
+.past a{
+    text-decoration: none;
+}
+
+.newChat a{
+    text-decoration: none;
 }

@@ -74,7 +74,7 @@ useEffect(() =>{
       
         <Grid item  lg={2} md={2} sm={3} sx={{ display: { xs: 'none', sm: 'block' } }}>
         
-            <Grid container className={styles.leftContent}>
+            <Grid container spacing={{lg:3, md:1, sm:1}} className={styles.leftContent}>
             <Grid item>
             <img className={styles.leftImage} src={leftImg}/>
             </Grid>
@@ -127,7 +127,7 @@ useEffect(() =>{
                 {/* <Box > */}
                 <div>
                 <Typography variant='h5'>How Can I Help You Today?</Typography>
-                <img src={leftImg}/>
+                <img src={leftImg} alt="main icon"vstyle={{marginLeft:"47px"}}/>
                 </div>
                 {/* </Box> */}
             </Grid>

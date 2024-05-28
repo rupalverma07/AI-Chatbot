@@ -16,10 +16,11 @@ const HistoryList = ({data}) => {
         setMessageList(data.msg)
         setChatDate(data.date)
     
-    },[])
+    },[data])
   return (
     <Box className={styles.chatContainer} lg={10} md={8} sm={8} sx={2}>
-            <p>{chatDate}</p>
+        {messageList.length > 0 && (<p>{chatDate}</p>)}
+            
 {messageList.map(item =>(
     <>
 

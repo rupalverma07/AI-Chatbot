@@ -26,52 +26,45 @@ const ChatHistory = () => {
     const[chatData, setChatData] = useState(getChatData())
     const[ratingValue, setRatingValue] = useState('')
     const[showSideBar, setShowSideBar] = useState(false)
+    const[filteredData, setFilteredData] = useState(chatData)
 
     const handleRatingChange = (e) =>{
         
         let rating = e.target.value
         console.log(rating)
         setRatingValue(rating)
-        // let msgData = chatData.map(item => item.msg
-        //     )
-        // let newData = msgData.map(elem =>{
-        //             console.log(elem)
-        //             let data = []
-        //             let newData = data.concat(elem);
-        //             return newData
-        // })
-        // // setChatData(filterredData)
-        // console.log(msgData)
-        // console.log(newData)
         let msgData = chatData.map(item => item.msg);
-        // let newData = msgData.map(elem => elem);
-        let data = [];
+       
+        let dataCombined = [];
         msgData.forEach(item => {
-            data = [...data,...item]
+          dataCombined = [...dataCombined,...item]
         })
-        console.log(data)
-        // Concatenate msgData and newData arrays
-        // let mergedData = msgData.concat(newData);
-        
-        // console.log(mergedData);
-        let filteredData = data.filter(item =>{
-            // if(item.isAI){
-             return   item.like === rating
-            // }
+        let deepCopy = JSON.parse(JSON.stringify(chatData));
+        let filterData = [];
+        let newData = [];
+        deepCopy.forEach(elem =>{
+          filterData = elem.msg.filter(item => Number(item.like) === Number(rating))
+          let index;
+          filterData.forEach(ele =>{
+            index = dataCombined.findIndex(elem => elem.text === ele.text)
+          })
+          if(index !== undefined){
+            filterData = [dataCombined[index-1],...filterData]
+          }
+          newData = [...newData,{date:elem.date,msg:filterData}]
         })
-        console.log(filteredData);
-        setChatData(filteredData)
+        setFilteredData(newData)
     }
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container>
         <Grid item  lg={2} md={2} sm={2}  sx={{ display: { xs: 'none', sm: 'block' } }} >
-            <Grid container className={styles.leftContent}>
+            <Grid container spacing={{lg:3, md:1, sm:1}} className={styles.leftContent}>
             <Grid item>
             <img className={styles.leftImage} src={leftImg}/>
             </Grid>
             <Grid item>
-           <Typography variant='h6'> <Link to="/">New Chat</Link></Typography>
+           <Typography variant='h6' className={styles.newChat}> <Link to="/">New Chat</Link></Typography>
             </Grid>
             <Grid item>
 
@@ -138,7 +131,8 @@ const ChatHistory = () => {
       </Select>
     </FormControl>
 </Stack>
-            {chatData.map((item) => <HistoryList data={item}/>)}
+{filteredData.length>0 ?(filteredData.map((item) => <HistoryList data={item}/>)) : ('')}
+            
             </Box>
         </Grid>
       </Grid>
